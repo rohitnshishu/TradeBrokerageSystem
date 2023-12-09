@@ -50,7 +50,7 @@ Monitoring Tools like AppDynamics can be used to see API response time and check
 is taking more time. It can also be used to check the number of concurrent user and understand the load on system.
 If any specific API errors out more, it can be detected and alerts could be sent to development team.
 It can be used to monitor infrastructure send Alerts in case any specific server has high CPU consumption.
-Does it can help in monitoring overall health of application.
+Thus it can help in monitoring overall health of application.
 
 Tools like Splunk can be used for logging and find out historical logs using search engine. It can also be
 used to create dashboard , to understand geographical distribution of users and how much load application
