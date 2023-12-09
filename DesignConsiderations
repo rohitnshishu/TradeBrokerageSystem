@@ -1,2 +1,63 @@
 1. Availability :
-Geographical Redundancy
+Geographical Redundancy : TradeBrokerageSystem can be deployed in 2 geographical regions.
+Geographical region can be where count of application user base is high, for lower latency.
+In the event of Disaster , traffic can be redirected to second region. Traffic will not be redirected
+to second region until time a failover is deemed required.
+
+Cloud providers have this provision as a service, and application can be deployed as active/passive across
+regions.
+
+System architecture and memory utilization needs to be efficient to avoid out of memory downtime and timeouts.
+For operations which are read heavy and where frequent updates are not happening, caching can improve
+performance.
+This can remove performance bottlenecks.HTTP connection timeouts,
+DB query optimization and timeouts and measuring API response time can ensure that system performs
+efficiently and is available.
+
+
+2.Volume of trade requests such as 100K in an hour.
+Performance/Load testing of application must be done to find out application performance under various loads.
+This can be done using tools like Jmeter, LoadRunner etc.
+
+No of Application instances : More than one application instances can be deployed in a region.Using Cloud this
+is often configurable in application configuration property.
+User requests can be load balanced using load balancer across various application instances, to eliminate single
+point of failure.Load balancer also prevents request from going to unhealthy application instance
+Cloud providers often provide inbuilt load balancers.
+
+Application instances can be scaled horizontally or vertically to handle more requests. Using Vertical scaling , more resource capacity
+is added to single instance . Using Horizontal scaling , more number of application instances are created.
+Cloud providers also provide automatic scaling,  where during peak load hours additional instances are created
+automatically by cloud to handle extra load.
+
+Individual tasks like Validating trade, booking trade, and updating trade can be broken down into multiple
+microservices and deployed independently.
+
+3.Database and why?
+SQL Database: For structured and consistent data, SQL is better. Also for performing complex queries, transactions,
+aggregation and calculation SQL is better.
+There is no real need of handling heterogeneous unstructured data in
+system,so NoSQL is not mandatory. Although NoSQl is better in terms of horizontal scaling, and distributing
+across multiple servers.We can trade-off Scaling for above mentioned SQL benefits.
+
+4.Resiliency :
+Ability of system to recover from failure. Having redundancy can improve resiliency. Like application deployed in
+different geographical regions, Database replicated across regions. Such that in case of failure, we can failover
+to redundant infrastructure
+
+5.Monitoring
+Monitoring Tools like AppDynamics can be used to see API response time and check which specific operation
+is taking more time. It can also be used to check the number of concurrent user and understand the load on system.
+If any specific API errors out more, it can be detected and alerts could be sent to development team.
+It can be used to monitor infrastructure send Alerts in case any specific server has high CPU consumption.
+Does it can help in monitoring overall health of application.
+
+Tools like Splunk can be used for logging and find out historical logs using search engine. It can also be
+used to create dashboard , to understand geographical distribution of users and how much load application
+experiences from each geography.
+
+6.Deployment Strategies
+As application is having multiple instances, we can perform rolling update of instances which allows deployment
+with zero downtime by incrementally updating instances with new one.
+We can use Kubernetes as it easily scales application up or down by adding or removing containers and handle
+deployment strategies for our application easily.
